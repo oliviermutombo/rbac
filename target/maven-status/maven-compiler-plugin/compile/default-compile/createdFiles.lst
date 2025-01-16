@@ -1,0 +1,3 @@
+com\example\rbac\RbacApplication.class
+com\example\rbac\config\SecurityConfig.class
+com\example\rbac\controllers\TaskController.class
