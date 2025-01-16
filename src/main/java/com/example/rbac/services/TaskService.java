@@ -11,25 +11,30 @@ import java.util.Map;
 @Service
 public class TaskService {
 
+    /**
+     * This is just an example to demonstrate that roles do not have to be implemented in the service layer.
+     * However, if need be, business unit permissions can be passed to the service layer from the controller depending on the business logic.
+     * The employee number should also be passed from the controller
+     *
+     * @param employeeNumber
+     * @param businessUnitRoles
+     * @return
+     */
     public List <UserTask> retrieveTasks(String employeeNumber, Map < String, List <SimpleGrantedAuthority>> businessUnitRoles) {
-        // Your logic to retrieve tasks based on business unit roles
-        // Example: Retrieve tasks for each business unit and role combination
+        List<UserTask> userTasks = new ArrayList<>();
         for (Map.Entry < String, List < SimpleGrantedAuthority >> entry: businessUnitRoles.entrySet()) {
             String businessUnit = entry.getKey();
-            List < SimpleGrantedAuthority > roles = entry.getValue();
+            List < SimpleGrantedAuthority > roles = entry.getValue(); // Roles can still be accessed here if needed but this is not advised.
 
-            // Process tasks for the business unit and roles
-            // Example: taskRepository.findTasksByBusinessUnitAndRoles(businessUnit, roles);
+            if (businessUnit.equalsIgnoreCase("CC")) {
+                userTasks.add(new UserTask("CC Task 1"));
+                userTasks.add(new UserTask("CC Task 2"));
+            }
+            if (businessUnit.equalsIgnoreCase("RAS")) {
+                userTasks.add(new UserTask("RAS Task 1"));
+                userTasks.add(new UserTask("RAS Task 2"));
+            }
         }
-        // Combine results and return
-        //return taskRepository.findTasksByEmployeeNumber(employeeNumber);
-        return getCCTasks();
-    }
-
-    public List<UserTask> getCCTasks() { //TODO - Change back to private
-        List<UserTask> userTasks = new ArrayList<>();
-        userTasks.add(new UserTask("CC Task 1"));
-        userTasks.add(new UserTask("CC Task 2"));
         return userTasks;
     }
 }

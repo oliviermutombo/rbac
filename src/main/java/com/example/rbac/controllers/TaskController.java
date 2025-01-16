@@ -35,8 +35,8 @@ public class TaskController {
         put("getWrite", "ROLE_Write");
     }};
 
-    @PreAuthorize("hasAnyRole('ROLE_Read', 'ROLE_Write')")
-    //@PreAuthorize("hasAnyRole(this.rolesFor.get('getRead'))")
+    @PreAuthorize("hasAnyRole('ROLE_Read', 'ROLE_Write')") // VALID
+    //@PreAuthorize("hasAnyRole(this.rolesFor.get('getRead'))") // ALSO VALID
     @GetMapping("/tasks")
     @ResponseBody
     public List<UserTask> getTasks() {
@@ -49,10 +49,4 @@ public class TaskController {
         }
         return Collections.emptyList();
     }
-
-    /*@GetMapping("/tasks")
-    @ResponseBody
-    public List<UserTask> getTasks() {
-        return taskService.getCCTasks();
-    }*/
 }
