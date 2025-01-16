@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,13 @@ public class TaskController {
     boolean test() {
         return true;
     }
+    public HashMap<String, String> rolesFor = new HashMap<>() {{
+        put("getRead", "ROLE_Read");
+        put("getWrite", "ROLE_Write");
+    }};
 
-    @PreAuthorize("hasAnyRole('Read', 'Write')")
+    @PreAuthorize("hasAnyRole('ROLE_Read', 'ROLE_Write')")
+    //@PreAuthorize("hasAnyRole(this.rolesFor.get('getRead'))")
     @GetMapping("/tasks")
     @ResponseBody
     public List<UserTask> getTasks() {
