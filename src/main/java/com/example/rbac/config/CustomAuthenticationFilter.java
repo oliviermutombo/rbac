@@ -25,8 +25,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
                     .collect(Collectors.groupingBy(
                             role -> role.split("_")[1],  // Group by Business Unit part
                             Collectors.mapping(
-                                    role -> new SimpleGrantedAuthority(role.split("_")[2]),  // Map to Role part
-                                    //role -> new SimpleGrantedAuthority("ROLE_" + role.split("_")[2]), // Prefix Role part with ROLE_
+                                    role -> new SimpleGrantedAuthority("ROLE_" + role.split("_")[2]), // Prefix Role part with ROLE_
+                                    //role -> new SimpleGrantedAuthority(role.split("_")[2]),  // Map to Role part
                                     Collectors.toList()
                             )
                     ));
